@@ -1,0 +1,29 @@
+{
+	"name": "studio",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "sanity dev",
+		"build": "sanity build",
+		"deploy": "sanity deploy",
+		"check": "tsc --noEmit",
+		"lint": "prettier --check .",
+		"format": "prettier --write .",
+		"test": "echo 'no studio tests'",
+		"typegen": "sanity schema extract --workspace content --path schema.json && sanity typegen generate"
+	},
+	"dependencies": {
+		"@sanity/vision": "^6.23.0",
+		"react": "^19.2.2",
+		"react-dom": "^19.2.2",
+		"sanity": "^6.23.0",
+		"sanity-plugin-internationalized-array": "^5.3.10",
+		"styled-components": "^6.1.15"
+	},
+	"devDependencies": {
+		"@types/react": "^19.2.0",
+		"prettier": "^3.8.3",
+		"typescript": "^6.0.3"
+	}
+}

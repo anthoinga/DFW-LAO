@@ -1,0 +1,39 @@
+node_modules
+.pnpm-store
+
+# Build output
+.svelte-kit
+.wrangler
+.output
+dist
+build
+.sanity
+
+# Generated
+apps/web/src/lib/paraglide
+apps/web/project.inlang/cache
+apps/web/worker-configuration.d.ts
+apps/web/src/lib/sanity/types.ts
+apps/studio/schema.json
+
+# Test output
+test-results
+playwright-report
+coverage
+.lighthouseci
+
+# Env
+.env
+.env.*
+!.env.example
+.dev.vars
+*.local.*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea
+*.swp
+
+# Vite
+vite.config.*.timestamp-*

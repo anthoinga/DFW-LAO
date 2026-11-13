@@ -1,0 +1,8 @@
+packages:
+  - apps/*
+
+onlyBuiltDependencies:
+  - esbuild
+  - workerd
+  - sharp
+  - simple-git-hooks

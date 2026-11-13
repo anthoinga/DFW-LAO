@@ -1,0 +1,10 @@
+# Package managers
+pnpm-lock.yaml
+
+# Generated
+src/lib/paraglide
+.svelte-kit
+worker-configuration.d.ts
+src/lib/sanity/types.ts
+/static/
+project.inlang/cache

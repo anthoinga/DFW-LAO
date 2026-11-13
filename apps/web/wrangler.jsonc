@@ -1,0 +1,40 @@
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "dfw-lao-heritage",
+	"compatibility_date": "2026-11-13",
+	"compatibility_flags": ["nodejs_compat"],
+	"main": ".svelte-kit/cloudflare/_worker.js",
+	"assets": {
+		"binding": "ASSETS",
+		"directory": ".svelte-kit/cloudflare"
+	},
+	"routes": [
+		{ "pattern": "www.dallasfwlaoheritage.com", "custom_domain": true },
+		{ "pattern": "links.dallasfwlaoheritage.com", "custom_domain": true }
+	],
+	"workers_dev": true,
+	"preview_urls": true,
+	"vars": {
+		"PUBLIC_SANITY_PROJECT_ID": "replace-me",
+		"PUBLIC_SANITY_DATASET": "production",
+		"PUBLIC_TURNSTILE_SITE_KEY": "1x00000000000000000000AA",
+		"APPLE_WALLET_ENABLED": "false",
+		"CHAT_DAILY_LIMIT": "500"
+	},
+	// Sensitive form submissions (assistance requests, camp registrations).
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "dfw-lao-submissions",
+			"database_id": "00000000-0000-0000-0000-000000000000",
+			"migrations_dir": "migrations"
+		}
+	],
+	// Daily chat message counter.
+	"kv_namespaces": [{ "binding": "KV", "id": "00000000000000000000000000000000" }],
+	// Per-visitor chat rate limit.
+	"ratelimits": [
+		{ "name": "CHAT_LIMITER", "namespace_id": "1001", "simple": { "limit": 6, "period": 60 } }
+	],
+	"observability": { "enabled": true }
+}

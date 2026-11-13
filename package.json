@@ -1,0 +1,33 @@
+{
+	"name": "dfw-lao-heritage",
+	"private": true,
+	"type": "module",
+	"packageManager": "pnpm@10.28.0",
+	"engines": {
+		"node": ">=22"
+	},
+	"scripts": {
+		"dev": "pnpm --filter web dev",
+		"dev:studio": "pnpm --filter studio dev",
+		"build": "pnpm -r build",
+		"check": "pnpm -r check",
+		"lint": "pnpm -r lint",
+		"format": "pnpm -r format",
+		"test": "pnpm -r test",
+		"typegen": "pnpm --filter studio typegen",
+		"i18n:ui": "pnpm --filter web i18n:ui",
+		"i18n:backfill": "pnpm --filter web i18n:backfill",
+		"prepare": "simple-git-hooks"
+	},
+	"devDependencies": {
+		"lint-staged": "^17.0.0",
+		"prettier": "^3.10.1",
+		"simple-git-hooks": "^2.14.0"
+	},
+	"simple-git-hooks": {
+		"pre-commit": "pnpm exec lint-staged"
+	},
+	"lint-staged": {
+		"*.{js,ts,svelte,json,css,md,yml}": "prettier --write --ignore-unknown"
+	}
+}
