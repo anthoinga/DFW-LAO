@@ -4,12 +4,10 @@ import { sequence } from '@sveltejs/kit/hooks';
 import { getTextDirection } from '#lib/paraglide/runtime.js';
 import { paraglideMiddleware } from '#lib/paraglide/server.js';
 import { deLocalizeUrl, extractLocaleFromUrl } from '#lib/paraglide/runtime.js';
-import { LINKS_HOST_PREFIX, type Locale } from '#lib/config.ts';
+import { isLinksHost, isPreviewHost, type Locale } from '#lib/config.ts';
 import { resolveRedirect } from '#lib/server/redirects.ts';
 import { getRedirectOverrides } from '#lib/sanity/content.ts';
 import { documentFor } from '#lib/agent/documents.ts';
-
-const isLinksHost = (url: URL) => url.hostname.startsWith(LINKS_HOST_PREFIX);
 
 let overrides: { at: number; map: Record<string, string> } | undefined;
 async function redirectOverrides() {
@@ -19,11 +17,12 @@ async function redirectOverrides() {
 	return overrides.map;
 }
 
-/** Card routes are only reachable on the links host; legacy URLs 301 to their new home. */
+/** Card routes are only reachable on the links host (or under /links on previews); legacy URLs 301 to their new home. */
 const routing: Handle = async ({ event, resolve }) => {
 	const { url } = event;
 	if (!isLinksHost(url)) {
-		if (url.pathname === '/links' || url.pathname.startsWith('/links/')) {
+		const cardPath = url.pathname === '/links' || url.pathname.startsWith('/links/');
+		if (cardPath && !isPreviewHost(url)) {
 			return new Response('Not found', { status: 404 });
 		}
 		const target = resolveRedirect(url.pathname, await redirectOverrides());
@@ -76,7 +75,12 @@ const headers: Handle = async ({ event, resolve }) => {
 	h.set('x-frame-options', 'SAMEORIGIN');
 	const path = event.url.pathname;
 	const personalCard = isLinksHost(event.url) && path !== '/' && path !== '/lo';
-	if (path.startsWith('/admin') || path.startsWith('/api/') || personalCard) {
+	if (
+		path.startsWith('/admin') ||
+		path.startsWith('/api/') ||
+		personalCard ||
+		isPreviewHost(event.url)
+	) {
 		h.set('x-robots-tag', 'noindex, nofollow');
 	}
 	return response;

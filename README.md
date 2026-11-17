@@ -59,5 +59,9 @@ when their keys are present.
 - **Site:** `pnpm --filter web build && pnpm --filter web exec wrangler deploy`. Secrets via
   `wrangler secret put <NAME>`; see `apps/web/.env.example` for the full list.
 - **Studio:** `pnpm --filter studio deploy`.
+- **Design previews (Vercel):** import the repo in Vercel with Root Directory `apps/web` and the
+  SvelteKit preset. Vercel sets `VERCEL=1`, which switches the build to the Vercel adapter. Previews
+  are `noindex`, cards live under `/links`, and features that need Cloudflare (form storage, chat
+  rate limits) report themselves as unavailable.
 - **CMS webhook:** on publish of translatable types, POST `{_id, _type}` to `/api/i18n/translate`
   with the shared secret.

@@ -10,4 +10,4 @@
 	<meta name="robots" content="noindex, nofollow" />
 </svelte:head>
 
-<Card card={data.card} wallet={data.wallet} />
+<Card card={data.card} wallet={data.wallet} base={data.base} />

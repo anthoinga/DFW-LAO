@@ -11,4 +11,4 @@
 	{#if data.card.tagline}<meta name="description" content={data.card.tagline} />{/if}
 </svelte:head>
 
-<Card card={data.card} wallet={data.wallet} />
+<Card card={data.card} wallet={data.wallet} base={data.base} />

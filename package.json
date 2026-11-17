@@ -17,7 +17,7 @@
 		"typegen": "pnpm --filter studio typegen",
 		"i18n:ui": "pnpm --filter web i18n:ui",
 		"i18n:backfill": "pnpm --filter web i18n:backfill",
-		"prepare": "simple-git-hooks"
+		"prepare": "simple-git-hooks || true"
 	},
 	"devDependencies": {
 		"lint-staged": "^17.0.0",
